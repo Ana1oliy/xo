@@ -1,0 +1,9 @@
+<app-field [state]="game$ | async"
+           [fieldSize]="fieldSize$ | async"
+           [cellSize]="cellSize$ | async"
+           (hit)="hit($event)">
+</app-field>
+<div class="buttons-container">
+  <button (click)="stop()">Назад</button>
+  <button (click)="restartGame()">Переиграть</button>
+</div>

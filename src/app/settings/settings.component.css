@@ -1,0 +1,119 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner {
+  background-color: gray;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 360px;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-container {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 0;
+}
+
+.field {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.field button {
+  flex: none;
+  margin-left: 5px;
+}
+
+.input {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 0;
+}
+
+.input label {
+  color: gray;
+  margin-right: 5px;
+  flex: none;
+}
+
+.input label {
+  width: 85px;
+}
+
+.players-list label .sign {
+  display: inline-block;
+  text-align: center;
+  padding: 0 5px;
+  width: 1em;
+  height: 1em;
+  color: darkred;
+}
+
+input {
+  border-color: gray;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+  flex: 1 1 0;
+}
+
+input[type='number'] {
+  text-align: right;
+}
+
+.field-container.invalid input {
+  border-color: red;
+}
+
+.error {
+  font-size: 10px;
+  color: red;
+  text-align: right;
+}
+
+.buttons-container {
+  display: flex;
+  margin-top: 5px;
+}
+
+.buttons-container button {
+  flex: 1 1 0;
+  font-weight: bold;
+  font-size: 120%;
+  background-color: gray;
+  color: white;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+.buttons-container button:disabled {
+  color: lightgray;
+  background-color: gray;
+}
+
+.buttons-container button:enabled:hover {
+  background-color: rgb(120, 120, 120);
+}
+
+.buttons-container button:enabled:active {
+  background-color: rgb(100, 100, 100);
+}

@@ -1,0 +1,43 @@
+<div class="banner">Крестики-нолики +</div>
+<form [formGroup]="form" (submit)="startGame()">
+  <div class="field-container" [class.invalid]="fieldSize.invalid">
+    <div class="field">
+      <div class="input">
+        <label for="fieldSize">Размер поля</label>
+        <input id="fieldSize"
+               formControlName="fieldSize"
+               type="number"
+               min="3"
+               max="10"/>
+      </div>
+    </div>
+    <div class="error" *ngIf="fieldSize.touched && fieldSize.errors && fieldSize.errors['required']">
+      Укажите размер поля!
+    </div>
+    <div class="error" *ngIf="fieldSize.touched && fieldSize.errors && fieldSize.errors['min']">
+      Размер поля не может быть меньше 3-х!
+    </div>
+    <div class="error" *ngIf="fieldSize.touched && fieldSize.errors && fieldSize.errors['max']">
+      Размер поля не может быть больше 10-ти!
+    </div>
+  </div>
+  <div class="players-list" formArrayName="players">
+    <div *ngFor="let player of players.controls; let i = index"
+         class="field-container" [class.invalid]="player.invalid">
+      <div class="field">
+        <div class="input">
+          <label for="player-{{i}}">Игрок {{i + 1}}<span class="sign">{{signs[i]}}</span> </label>
+          <input id="player-{{i}}" [formControlName]="i"/>
+        </div>
+        <button *ngIf="i > 1" (click)="removePlayer(i)">-</button>
+      </div>
+      <div class="error" *ngIf="player.touched && player.errors && player.errors['required']">
+        Укажите имя игрока!
+      </div>
+    </div>
+    <button type="button" (click)="addPlayer()" [disabled]="canNotAddPlayer$ | async">Добавить игрока</button>
+  </div>
+  <div class="buttons-container">
+    <button type="submit" [disabled]="form.invalid">Начать игру</button>
+  </div>
+</form>

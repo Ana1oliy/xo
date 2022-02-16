@@ -1,0 +1,84 @@
+<div class="hit-indicator">
+  <div class="hits-line">
+    <div class="prev-hits">
+      <div *ngFor="let hit of state?.history; let i = index"
+           class="hit-sign"
+           [style.opacity]="(3 - (state?.history?.length ?? 0) + i + 1) / 3"
+           [title]="hit.player.name">
+        {{hit.player.sign}}
+      </div>
+    </div>
+    <div class="current-hit"
+         [title]="state?.currentPlayer?.name">
+      {{state?.currentPlayer?.sign ?? ' ⃠'}}
+    </div>
+    <div class="next-hits">
+      <div *ngFor="let hit of state?.queue; let i = index"
+           class="hit-sign"
+           [style.opacity]="(3 - i) / 3"
+           [title]="hit.name">
+        {{hit.sign}}
+      </div>
+    </div>
+  </div>
+  <div class="current-player-name">{{state?.currentPlayer?.name ?? 'нет хода'}}</div>
+</div>
+<div class="field-container"
+     [style.width.px]="fieldSize"
+     [style.height.px]="fieldSize">
+  <div class="field"
+       [style.width.px]="fieldSize"
+       [style.height.px]="fieldSize">
+    <div *ngFor="let row of state?.field; let y = index"
+         class="row horizontal">
+      <div *ngFor="let cell of row; let x = index"
+           [ngClass]="{'free': cell.canHit}"
+           [style.width.px]="cellSize"
+           [style.height.px]="cellSize"
+           [style.font-size.px]="cellSize"
+           [style.line-height.px]="cellSize"
+           class="cell"
+           (click)="onCellClick(x, y)">
+        {{cell.sign}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="state?.result?.strike?.type === 'diagonalTopToBottom'"
+       class="strike-container diagonal top-to-bottom"
+       [style.width.px]="fieldSize"
+       [style.height.px]="fieldSize">
+  </div>
+  <div *ngIf="state?.result?.strike?.type === 'diagonalBottomToTop'"
+       class="strike-container diagonal bottom-to-top"
+       [style.width.px]="fieldSize"
+       [style.height.px]="fieldSize">
+  </div>
+  <div *ngIf="state?.result?.strike?.type === 'horizontal'"
+       class="strike-container horizontal"
+       [style.width.px]="fieldSize"
+       [style.height.px]="fieldSize">
+    <div *ngFor="let row of state?.field; let i = index"
+         [class.displayed]="state?.result?.strike?.index === i"
+         [style.height.px]="(fieldSize ?? 0) + 3 * 2"
+         class="strike">
+    </div>
+  </div>
+  <div *ngIf="state?.result?.strike?.type === 'vertical'"
+       class="strike-container vertical"
+       [style.width.px]="fieldSize"
+       [style.height.px]="fieldSize">
+    <div *ngFor="let row of state?.field; let i = index"
+         [class.displayed]="state?.result?.strike?.index === i"
+         [style.width.px]="(fieldSize ?? 0) + 3 * 2"
+         class="strike">
+    </div>
+  </div>
+  <div *ngIf="state?.result?.state === 'deadHeat'"
+       class="message-container">
+    <div class="message dead-heat">Ничья</div>
+  </div>
+  <div *ngIf="state?.result?.state === 'hasWinner'"
+       class="message-container">
+    <div class="message win">Победил {{state?.currentPlayer?.name}}!</div>
+  </div>
+</div>
